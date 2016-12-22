@@ -1,5 +1,5 @@
 /**
- * Created by lijunjie on 2016年12月21日
+ * Created by lijunjie on 2016年12月22日
  */
 package cn.tedu.bookshop.adapter;
 
@@ -7,16 +7,16 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import cn.tedu.bookshop.MyApplication;
 import cn.tedu.bookshop.R;
-import cn.tedu.bookshop.entity.Book;
+import cn.tedu.bookshop.entity.CartItem;
 import cn.tedu.bookshop.util.GlobalConsts;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -27,20 +27,20 @@ import com.android.volley.toolbox.ImageLoader.ImageListener;
  * @author lijunjie
  *
  */
-public class StoreBookListAdapter extends BaseAdapter {
+public class CartItemAdapter extends BaseAdapter {
 
-	private List<Book> books;
-	private Context context;
+	private List<CartItem> items;
 	private LayoutInflater inflater;
+	private Context context;
+	private ListView listView;
 	private ImageLoader imageLoader;
 	
-	/**
-	 * @param books
-	 */
-	public StoreBookListAdapter(FragmentActivity fragment ,List<Book> books) {
-		this.books = books;
-		this.context = fragment;
-		this.inflater = LayoutInflater.from(fragment);
+	
+	public CartItemAdapter(Context context, List<CartItem> items, ListView listView) {
+		this.context = context;
+		this.items = items;
+		this.listView = listView;
+		this.inflater = LayoutInflater.from(context);
 		
 		imageLoader = new ImageLoader(MyApplication.getQueue(), new ImageCache() {  
 		    @Override  
@@ -53,25 +53,25 @@ public class StoreBookListAdapter extends BaseAdapter {
 		    	Bitmap bm = MyApplication.getCache().get(url);
 		        return bm;  
 		    }  
-		});  
+		});
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see android.widget.Adapter#getCount()
 	 */
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return books.size();
+		return items.size();
 	}
 
 	/* (non-Javadoc)
 	 * @see android.widget.Adapter#getItem(int)
 	 */
 	@Override
-	public Book getItem(int i) {
+	public Object getItem(int i) {
 		// TODO Auto-generated method stub
-		return books.get(i);
+		return items.get(i);
 	}
 
 	/* (non-Javadoc)
@@ -89,30 +89,50 @@ public class StoreBookListAdapter extends BaseAdapter {
 	@Override
 	public View getView(int i, View view, ViewGroup arg2) {
 		// TODO Auto-generated method stub
-		ViewHolder holder=null;
+		CartItem item = items.get(i);
 		if(view==null){
-			view = inflater.inflate(R.layout.item_store_gv_book, null);
-			holder = new ViewHolder();
-			holder.imageView = (ImageView) view.findViewById(R.id.imageView);
-			holder.textView = (TextView) view.findViewById(R.id.textView);
+			view = inflater.inflate(R.layout.item_cart_lv_cartitem, null);
+			ViewHolder holder = new ViewHolder();
+			holder.ivBookPic = (ImageView)view.findViewById(R.id.ivBookPic);
+			holder.ivm = (ImageView) view.findViewById(R.id.ivm);
+			holder.ivp = (ImageView) view.findViewById(R.id.ivp);
+			holder.ivDel = (ImageView) view.findViewById(R.id.ivDel);
+			holder.tvBookName = (TextView) view.findViewById(R.id.tvBookName);
+			holder.tvPrice = (TextView) view.findViewById(R.id.tvPrice);
+			holder.tvCount = (TextView) view.findViewById(R.id.tvCount);
+			holder.tvNum = (TextView) view.findViewById(R.id.tvNum);
 			view.setTag(holder);
 		}
-		holder = (ViewHolder) view.getTag();
-		Book book = getItem(i);
-
-		holder.textView.setText(book.getProductName());
-		ImageListener listener = ImageLoader.getImageListener(holder.imageView,  
+		ViewHolder holder = (ViewHolder)view.getTag();
+		
+		ImageListener listener = ImageLoader.getImageListener(holder.ivBookPic,  
 		        R.drawable.ic_launcher, R.drawable.ic_launcher);
 		
-		imageLoader.get(GlobalConsts.BASEURL + "productImages/" + book.getProduct_pic(), listener);
+		String url = GlobalConsts.BASEURL + "productImages/" + item.getBook().getProduct_pic();
+		imageLoader.get(url, listener);
 		
 		
-		return view;
+		
+		holder.tvBookName.setText(item.getBook().getProductName());
+		holder.tvPrice.setText(item.getBook().getDangPrice() + "￥");
+		holder.tvCount.setText("x" + item.getCount());
+		holder.tvCount.setTag("tvCount" + i);
+		holder.tvNum.setText(item.getCount() + "");
+		
+		return null;
 	}
 	
 	class ViewHolder{
-		ImageView imageView;
-		TextView textView;
+		ImageView ivBookPic;
+		TextView tvBookName;
+		TextView tvPrice;
+		TextView tvCount;
+		ImageView ivm;
+		ImageView ivp;
+		TextView tvNum;
+		ImageView ivDel;
 	}
+	
+	
 
 }

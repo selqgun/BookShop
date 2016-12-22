@@ -8,14 +8,17 @@ import java.util.List;
 import org.xutils.x;
 import org.xutils.view.annotation.ViewInject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import cn.tedu.bookshop.R;
+import cn.tedu.bookshop.activity.BookDetailActivity;
 import cn.tedu.bookshop.adapter.StoreBookListAdapter;
 import cn.tedu.bookshop.entity.Book;
 import cn.tedu.bookshop.presenter.IStorePresenter;
@@ -71,7 +74,53 @@ public class FragmentShop extends Fragment implements IStoreView{
 		storePresenter.loadBooks(GlobalConsts.BOOK_LIST_TYPE_HOT);
 		storePresenter.loadBooks(GlobalConsts.BOOK_LIST_TYPE_NEW);
 		
+		//给gridView添加监听
+		setListeners();
 		return view;
+	}
+	/**
+	 * 
+	 */
+	private void setListeners() {
+		// TODO Auto-generated method stub
+		gvRecommend.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					int i, long arg3) {
+				// TODO Auto-generated method stub
+				Book book = reCommendBooks.get(i);
+				Intent intent = new Intent(getActivity(), BookDetailActivity.class);
+				intent.putExtra("book", book);
+				startActivity(intent);
+			}
+		});
+		
+		gvNew.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					int i, long arg3) {
+				// TODO Auto-generated method stub
+				Book book = newBooks.get(i);
+				Intent intent = new Intent(getActivity(), BookDetailActivity.class);
+				intent.putExtra("book", book);
+				startActivity(intent);
+			}
+		});
+		
+		gvHot.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					int i, long arg3) {
+				// TODO Auto-generated method stub
+				Book book = hotBooks.get(i);
+				Intent intent = new Intent(getActivity(), BookDetailActivity.class);
+				intent.putExtra("book", book);
+				startActivity(intent);
+			}
+		});
 	}
 	/* (non-Javadoc)
 	 * @see cn.tedu.bookshop.view.IStoreView#updateBooksView(java.util.List, int)

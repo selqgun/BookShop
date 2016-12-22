@@ -314,7 +314,6 @@ public class Book implements Serializable{
 			String productName, String product_pic, String publishTime,
 			String publishedTime, String publishing, String totalPage,
 			String whichEdtion, String wordNumber) {
-		super();
 		this.add_time = add_time;
 		this.author = author;
 		this.cauthor_summary = cauthor_summary;
@@ -341,7 +340,6 @@ public class Book implements Serializable{
 	 * 
 	 */
 	public Book() {
-		super();
 	}
 	
 
