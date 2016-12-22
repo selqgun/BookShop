@@ -56,6 +56,10 @@ public class CartItemAdapter extends BaseAdapter {
 		});
 	}
 	
+	public void addAll(List<CartItem> items){
+		
+	}
+	
 	/* (non-Javadoc)
 	 * @see android.widget.Adapter#getCount()
 	 */
@@ -119,7 +123,7 @@ public class CartItemAdapter extends BaseAdapter {
 		holder.tvCount.setTag("tvCount" + i);
 		holder.tvNum.setText(item.getCount() + "");
 		
-		return null;
+		return view;
 	}
 	
 	class ViewHolder{

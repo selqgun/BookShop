@@ -40,6 +40,8 @@ public class FragmentCart extends Fragment implements ICartView {
 	private Button btnSubmit;
 	private List<CartItem> items;
 	
+	CartItemAdapter adapter;
+	
 	/* (non-Javadoc)
 	 * @see android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
 	 */
@@ -52,6 +54,9 @@ public class FragmentCart extends Fragment implements ICartView {
 		x.view().inject(this, view);
 		
 		
+		items = MyApplication.getCart().getItems();
+		adapter = new CartItemAdapter(getActivity(), items, lvCart);
+		lvCart.setAdapter(adapter);
 		
 		return view;
 	}
@@ -63,10 +68,9 @@ public class FragmentCart extends Fragment implements ICartView {
 	public void onResume() {
 		super.onResume();
 		// TODO Auto-generated method stub
-		items = MyApplication.getCart().getItems();
-		
-		CartItemAdapter adapter = new CartItemAdapter(getActivity(), items, lvCart);
-		lvCart.setAdapter(adapter);
+		//items = MyApplication.getCart().getItems();
+		//adapter.addAll(items);
+		adapter.notifyDataSetChanged();
 		
 	}
 	/* (non-Javadoc)
