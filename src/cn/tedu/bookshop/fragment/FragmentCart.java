@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
@@ -20,6 +21,8 @@ import cn.tedu.bookshop.MyApplication;
 import cn.tedu.bookshop.R;
 import cn.tedu.bookshop.adapter.CartItemAdapter;
 import cn.tedu.bookshop.entity.CartItem;
+import cn.tedu.bookshop.presenter.ICartPresenter;
+import cn.tedu.bookshop.presenter.impl.CartPresenterImpl;
 import cn.tedu.bookshop.view.ICartView;
 
 /**
@@ -40,7 +43,8 @@ public class FragmentCart extends Fragment implements ICartView {
 	private Button btnSubmit;
 	private List<CartItem> items;
 	
-	CartItemAdapter adapter;
+	private CartItemAdapter adapter;
+	private ICartPresenter presenter;
 	
 	/* (non-Javadoc)
 	 * @see android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
@@ -58,7 +62,29 @@ public class FragmentCart extends Fragment implements ICartView {
 		adapter = new CartItemAdapter(getActivity(), items, lvCart);
 		lvCart.setAdapter(adapter);
 		
+		presenter = new CartPresenterImpl(this);
+		
+		adapter.setPresenter(presenter);
+		
+		setListener();
+		
+		
 		return view;
+	}
+
+	/**
+	 * 
+	 */
+	private void setListener() {
+		// TODO Auto-generated method stub
+		btnEdit.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View view) {
+				// TODO Auto-generated method stub
+				adapter.deleteToggle();
+			}
+		});
 	}
 
 	/* (non-Javadoc)
@@ -70,6 +96,7 @@ public class FragmentCart extends Fragment implements ICartView {
 		// TODO Auto-generated method stub
 		//items = MyApplication.getCart().getItems();
 		//adapter.addAll(items);
+		presenter.loadTotalPrice();
 		adapter.notifyDataSetChanged();
 		
 	}
@@ -79,6 +106,20 @@ public class FragmentCart extends Fragment implements ICartView {
 	@Override
 	public void updateTotalPrice(double price) {
 		// TODO Auto-generated method stub
-		
+		tvTotalPrice.setText(price+"");
 	}
+
+	/* (non-Javadoc)
+	 * @see cn.tedu.bookshop.view.ICartView#freshCartList()
+	 */
+	@Override
+	public void freshCartList() {
+		// TODO Auto-generated method stub
+		adapter.notifyDataSetChanged();
+	}
+	
+	
+	
+	
+	
 }

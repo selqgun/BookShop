@@ -12,4 +12,10 @@ import cn.tedu.bookshop.entity.Book;
 public interface ICartModel extends IModel {
 
 	public boolean addBook(Book book);
+	
+	public boolean deleteBook(Book book);
+
+	public boolean modifyNum(Book book, int num);
+	
+	public double getTotalPrice();
 }

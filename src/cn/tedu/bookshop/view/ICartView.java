@@ -10,5 +10,7 @@ package cn.tedu.bookshop.view;
 public interface ICartView  extends IView{
 
 	public void updateTotalPrice(double price);
+	
+	public void freshCartList();
 
 }

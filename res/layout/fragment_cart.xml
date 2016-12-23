@@ -8,7 +8,7 @@
         android:id="@+id/relativeHeader"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@drawable/shouye_bar_top"
+        android:background="#6F8811"
         android:padding="9dp">
 
         <TextView
@@ -30,6 +30,7 @@
             android:textSize="14sp"
             android:textColor="#ffffff"
             android:id="@+id/btnEdit"
+            android:onClick="doEdit"
             android:background="@null"
             android:layout_alignParentRight="true"/>
 

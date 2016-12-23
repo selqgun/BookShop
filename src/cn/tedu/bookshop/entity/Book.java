@@ -351,4 +351,19 @@ public class Book implements Serializable{
 						'}';
 	}
 	
+	
+	@Override
+	public boolean equals(Object o) {
+		// TODO Auto-generated method stub
+		
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Book book = (Book) o;
+
+		if (id != book.id) return false;
+
+		return true;
+	}
+	
 }

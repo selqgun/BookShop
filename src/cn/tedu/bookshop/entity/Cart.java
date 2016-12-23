@@ -59,4 +59,45 @@ public class Cart implements Serializable{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
+	public double getTotalPrice() {
+		double price = 0;
+		for(CartItem item:items){
+			price += item.getBook().getDangPrice()*item.getCount();
+		}
+		return price;
+	}
+	
+	public boolean deleteItem(Book book){
+		
+		int index = -1;
+		for (int i = 0; i < items.size(); i++) {
+			CartItem item = items.get(i);
+			if (item.getBook().equals(book)) {
+				item.setCount(0);
+				index = i;
+				break;
+			}
+		}
+		if(index>-1){
+			items.remove(index);
+			return true;
+		}
+		saveCart();
+		return false;
+	}
+	
+	public boolean mofifyItemNum(Book book,int num){
+		for (int i = 0; i < items.size(); i++) {
+			CartItem item = items.get(i);
+			if (item.getBook().equals(book)) {
+				item.setCount(num);
+				return true;
+			}
+		}
+		saveCart();
+		return false;
+	}
+	
 }
