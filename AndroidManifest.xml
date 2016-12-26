@@ -29,8 +29,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="cn.tedu.bookshop.activity.BookDetailActivity"
+            android:name=".activity.BookDetailActivity"
             android:label="@string/title_activity_book_detail" >
+        </activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:label="@string/title_activity_regist" >
+        </activity>
+        <activity
+            android:name="cn.tedu.bookshop.activity.RegistActivity"
+            android:label="@string/title_activity_regist" >
         </activity>
     </application>
 

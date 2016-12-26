@@ -11,12 +11,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import cn.tedu.bookshop.R;
+import cn.tedu.bookshop.adapter.MainPagerAdapter;
 import cn.tedu.bookshop.fragment.FragmentCart;
 import cn.tedu.bookshop.fragment.FragmentMy;
 import cn.tedu.bookshop.fragment.FragmentShop;
@@ -101,9 +101,15 @@ public class MainActivity extends FragmentActivity {
 			}
 			
 			@Override
-			public void onPageScrolled(int arg0, float arg1, int arg2) {
+			public void onPageScrolled(int i, float f, int i2) {
 				// TODO Auto-generated method stub
-				
+				if(f!=0 && i!=0){ //当前是第3页
+					//设置第三个fragment header的透明度
+					FragmentMy fragment = (FragmentMy) fragments.get(2);
+					fragment.slide(f);
+					
+					Log.d("tedu", "i:"+i+"f:"+f+"i2:"+2);
+				}
 			}
 			
 			@Override

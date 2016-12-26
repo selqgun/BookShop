@@ -30,7 +30,7 @@ public class StoreModel implements IStoreModel {
 	 * @see cn.tedu.bookshop.model.IStoreModel#loadBooks(cn.tedu.bookshop.model.IModel.AsyncCallback)
 	 */
 	@Override
-	public void loadBooks(final AsyncCallback callback,final int type) {
+	public void loadBooks(final AsyncCallbackForType callback,final int type) {
 		// TODO Auto-generated method stub
 		
 		String url= GlobalConsts.TYPE_URL[type];

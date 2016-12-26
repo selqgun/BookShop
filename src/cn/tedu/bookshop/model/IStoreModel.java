@@ -11,5 +11,5 @@ import java.util.List;
  */
 public interface IStoreModel extends IModel {
 
-	void loadBooks(AsyncCallback callback,int type);
+	void loadBooks(AsyncCallbackForType callback,int type);
 }

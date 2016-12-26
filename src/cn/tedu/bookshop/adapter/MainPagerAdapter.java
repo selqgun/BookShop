@@ -1,7 +1,7 @@
 /**
  * Created by lijunjie on 2016年12月21日
  */
-package cn.tedu.bookshop.activity;
+package cn.tedu.bookshop.adapter;
 
 import java.util.List;
 

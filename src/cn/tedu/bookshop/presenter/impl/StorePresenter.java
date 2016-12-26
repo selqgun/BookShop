@@ -40,7 +40,7 @@ public class StorePresenter implements IStorePresenter {
 	@Override
 	public void loadBooks(int type) {
 		// TODO Auto-generated method stub
-		storeModel.loadBooks(new IModel.AsyncCallback() {
+		storeModel.loadBooks(new IModel.AsyncCallbackForType() {
 			
 			@Override
 			public void onSuccess(Object success, int type) {
