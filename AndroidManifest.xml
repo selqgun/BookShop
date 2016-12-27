@@ -37,8 +37,12 @@
             android:label="@string/title_activity_regist" >
         </activity>
         <activity
-            android:name="cn.tedu.bookshop.activity.RegistActivity"
+            android:name=".activity.RegistActivity"
             android:label="@string/title_activity_regist" >
+        </activity>
+        <activity
+            android:name="cn.tedu.bookshop.activity.AddressActivity"
+            android:label="@string/title_activity_address" >
         </activity>
     </application>
 

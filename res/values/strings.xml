@@ -6,5 +6,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_book_detail">BookDetailActivity</string>
     <string name="title_activity_regist">RegistActivity</string>
+    <string name="title_activity_address">AddressActivity</string>
 
 </resources>

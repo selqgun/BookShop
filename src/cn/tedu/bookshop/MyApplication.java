@@ -6,9 +6,11 @@ package cn.tedu.bookshop;
 import org.xutils.x;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
 import cn.tedu.bookshop.entity.Cart;
+import cn.tedu.bookshop.entity.User;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -23,6 +25,8 @@ public class MyApplication extends Application {
 	private static RequestQueue queue;
 	private static LruCache<String, Bitmap> cache;
 	private static Cart cart;
+	private static User currentUser;
+	private static String token;
 	
 	
 	@Override
@@ -78,6 +82,48 @@ public class MyApplication extends Application {
 	 */
 	public static Cart getCart() {
 		return cart;
+	}
+
+
+	/**
+	 * @param user
+	 */
+	public void saveCurrentUser(User user) {
+		// TODO Auto-generated method stub
+		this.currentUser= user;
+		
+	}
+
+
+	/**
+	 * @return the currentUser
+	 */
+	public static User getCurrentUser() {
+		return currentUser;
+	}
+
+
+	/**
+	 * @return the token
+	 */
+	public String getToken() {
+		SharedPreferences sp = getSharedPreferences("token", MODE_PRIVATE);
+		String tokenStr = sp.getString("token", "");
+		return tokenStr;
+	}
+
+
+	/**
+	 * 保存token字符串,下次登录时直接发token给服务器,就可以免帐号密码登录
+	 * @param token the token to set
+	 */
+	public void setToken(String token) {
+		this.token = token;
+		SharedPreferences sp = getSharedPreferences("token", MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putString("token",token);
+		editor.commit();
+		
 	}
 
 	

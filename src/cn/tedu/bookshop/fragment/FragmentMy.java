@@ -17,9 +17,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import cn.tedu.bookshop.MyApplication;
 import cn.tedu.bookshop.R;
+import cn.tedu.bookshop.activity.AddressActivity;
 import cn.tedu.bookshop.activity.LoginActivity;
+import cn.tedu.bookshop.entity.User;
 import cn.tedu.bookshop.presenter.IMyPresenter;
+import cn.tedu.bookshop.presenter.MyPresenterImpl;
 import cn.tedu.bookshop.view.IMyView;
 
 /**
@@ -62,7 +66,12 @@ public class FragmentMy extends Fragment implements IMyView {
 			
 			setListener();
 			
-			
+			presenter = new MyPresenterImpl(this);
+			//自动登录
+			String token = MyApplication.getApp().getToken();
+			if(token != null) {
+				presenter.loginWithoutPwd(token);
+			}
 			
 			return view;
 	}
@@ -75,7 +84,7 @@ public class FragmentMy extends Fragment implements IMyView {
 		// TODO Auto-generated method stub
 		MyOnClickListener listener = new MyOnClickListener();
 		ivPhoto.setOnClickListener(listener);
-		
+		itemAddress.setOnClickListener(listener);
 	}
 
 	class MyOnClickListener implements OnClickListener {
@@ -91,7 +100,10 @@ public class FragmentMy extends Fragment implements IMyView {
 				Intent i = new Intent(getActivity(), LoginActivity.class);
 				startActivityForResult(i, REQUEST_CODE_LOGIN_USER);
 				break;
-
+			case R.id.itemAddress:
+				Intent q = new Intent(getActivity(), AddressActivity.class);
+				startActivity(q);
+				break;
 			default:
 				break;
 			}
@@ -112,7 +124,9 @@ public class FragmentMy extends Fragment implements IMyView {
 	@Override
 	public void updateUserInfo() {
 		// TODO Auto-generated method stub
-		
+		User user = MyApplication.getCurrentUser();
+		String nickname=user.getNickname();
+		tvNickname.setText(nickname);
 	}
 	
 	/* (non-Javadoc)

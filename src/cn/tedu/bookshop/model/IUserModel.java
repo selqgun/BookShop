@@ -17,4 +17,6 @@ public interface IUserModel extends IModel {
 
 	public void getImageCode(AsyncCallback callback);
 	
+	public void loginWithoutPwd(String token, AsyncCallback callback);
+	
 }

@@ -14,14 +14,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.tedu.bookshop.MyApplication;
 import cn.tedu.bookshop.R;
+import cn.tedu.bookshop.entity.User;
 import cn.tedu.bookshop.presenter.ILoginPresenter;
+import cn.tedu.bookshop.presenter.impl.LoginPresenterImpl;
+import cn.tedu.bookshop.view.ILoginView;
 
 /**
  * @author lijunjie
  *
  */
-public class LoginActivity extends Activity  {
+public class LoginActivity extends Activity implements ILoginView {
 	
 	@ViewInject(R.id.etLoginname)
 	private EditText etLoginname;
@@ -47,6 +51,8 @@ public class LoginActivity extends Activity  {
 		x.view().inject(this);
 		
 		setListener();
+		
+		presenter = new LoginPresenterImpl(this);
 		
 	}
 
@@ -80,6 +86,30 @@ public class LoginActivity extends Activity  {
 					break;
 			}
 		}
+	}
+
+
+	/* (non-Javadoc)
+	 * @see cn.tedu.bookshop.view.ILoginView#loginSuccess()
+	 */
+	@Override
+	public void loginSuccess() {
+		// TODO Auto-generated method stub
+		//User user = MyApplication.getApp().getCurrentUser();
+		Toast.makeText(this,"登录成功",Toast.LENGTH_SHORT).show();
+		setResult(RESULT_OK);
+		finish();
+		
+	}
+
+
+	/* (non-Javadoc)
+	 * @see cn.tedu.bookshop.view.ILoginView#loginFailed(java.lang.String)
+	 */
+	@Override
+	public void loginFailed(String errorMessage) {
+		// TODO Auto-generated method stub
+		Toast.makeText(this,errorMessage,Toast.LENGTH_SHORT).show();
 	}
 
 }
